@@ -49,6 +49,7 @@ header {
   border: 3px var(--bg-secondary) solid;
   border-radius: 5px;
   font-size: 20px;
+  overflow-y: auto;
 }
 
 .task {
