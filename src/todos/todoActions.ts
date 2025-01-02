@@ -1,5 +1,5 @@
 import { TODO } from "../types/todo";
-import { renderTodos } from "./renderTodos";
+import { renderTodos } from "./rendering";
 import { todos } from "./todos";
 
 export const createTodo = () => {

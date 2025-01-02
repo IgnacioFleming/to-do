@@ -1,4 +1,4 @@
-import { renderTodos } from "./todos/renderTodos.ts";
+import { renderTodos } from "./todos/rendering.ts";
 import { createTodo } from "./todos/todoActions.ts";
 
 renderTodos();

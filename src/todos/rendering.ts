@@ -1,14 +1,15 @@
 import { STATUS } from "../enums/enums";
-import { TODO, TodoID } from "../types/todo";
-import { createTask, deleteTask, handleTaskCheck } from "./taskActions";
+import { TASK, TODO, TodoID } from "../types/todo";
+import { createTask, deleteTask, emptyTasks, filterPendingTasks, handleTaskCheck, showAllTasks } from "./taskActions";
 import { todos } from "./todos";
 
-export const renderTasks = (id: TodoID) => {
+export const renderTasks = (id: TodoID, filteredTasks?: TASK[]) => {
   const tasksSection = document.getElementById(id)?.querySelector(".tasks") as HTMLDivElement;
   tasksSection.innerHTML = "";
   const todo: TODO | undefined = todos.find((el) => el.id === id);
   if (todo) {
-    todo.tasks.forEach((task) => {
+    const tasks = filteredTasks || todo.tasks;
+    tasks.forEach((task) => {
       const taskDiv = document.createElement("div");
       taskDiv.className = "task";
       taskDiv.id = task.id;
@@ -30,7 +31,6 @@ export const renderTasks = (id: TodoID) => {
       deleteIcon.addEventListener("click", () => deleteTask(task.id));
     });
   }
-  console.log(todos);
 };
 
 export const renderTodos = () => {
@@ -40,22 +40,42 @@ export const renderTodos = () => {
     const newTodo = document.createElement("div") as HTMLDivElement;
     newTodo.className = "todo";
     newTodo.id = todo.id;
-    newTodo.innerHTML = `
-                <div class="newTask">
-                    <input type="text" />
-                </div>
-                <div class="tasks"></div>
+    newTodo.innerHTML = `   
+      <div class="container">
+        <header>
+          <div class="newTask">
+          <input type="text" />
+          </div>
+        </header>
+        <section class="tasksContainer">
+          <div class="tasks"></div>
+          <div>
+        </section>
+        <footer>
+          <button id="all-btn">All</button>
+          <button id="pending-btn">Pending</button>
+          <button id="empty-btn">Empty All</button>
+        </footer>
+      </div>
                     `;
     todosSection.appendChild(newTodo);
     renderTasks(todo.id);
-    const input = document.getElementById(todo.id)?.querySelector(".newTask input") as HTMLInputElement;
+    const todoDiv = document.getElementById(todo.id) as HTMLDivElement;
+    const input = todoDiv.querySelector(".newTask input") as HTMLInputElement;
     if (input) {
       input.addEventListener("keydown", (e) => {
         if (e.key === "Enter") {
           const target = e.target as HTMLInputElement;
           createTask(target?.value, todo.id);
+          target.value = "";
         }
       });
     }
+    const pendingButton = todoDiv.querySelector("#pending-btn") as HTMLButtonElement;
+    pendingButton.addEventListener("click", () => filterPendingTasks(todo.id));
+    const showAllTasksButton = todoDiv.querySelector("#all-btn") as HTMLButtonElement;
+    showAllTasksButton.addEventListener("click", () => showAllTasks(todo.id));
+    const emptyAllTasksButton = todoDiv.querySelector("#empty-btn") as HTMLButtonElement;
+    emptyAllTasksButton.addEventListener("click", () => emptyTasks(todo.id));
   });
 };

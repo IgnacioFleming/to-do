@@ -11,15 +11,12 @@
   --font-primary: white;
   --font-secondary: rgb(28, 28, 28);
   --component-primary: #15de47;
+  --bg-dark-gray: rgb(56, 56, 56);
 }
 
 body {
   background-color: var(--bg-primary);
   color: white;
-}
-
-header {
-  padding: 50px;
 }
 
 #todos {
@@ -49,7 +46,14 @@ header {
   border: 3px var(--bg-secondary) solid;
   border-radius: 5px;
   font-size: 14px;
-  overflow-y: auto;
+}
+
+.todo .container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  gap: 5px;
+  padding: 5px;
 }
 
 .task {
@@ -81,6 +85,11 @@ header {
   text-decoration-line: line-through;
 }
 
+.tasksContainer {
+  overflow-y: auto;
+  flex-grow: 1;
+}
+
 .newTask {
   padding: 15px;
   width: 100%;
@@ -90,7 +99,7 @@ header {
   width: 100%;
   font-size: 16px;
   height: 50px;
-  background-color: var(--bg-primary);
+  background-color: var(--bg-dark-gray);
   color: var(--font-primary);
   border: 1px solid var(--bg-secondary);
   padding: 5px;
@@ -132,4 +141,22 @@ header {
   flex-wrap: wrap;
   max-width: 100%;
   word-break: break-word;
+}
+
+.todo footer {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+}
+
+.todo footer button {
+  font-size: 16px;
+  font-weight: 500;
+  background-color: var(--bg-dark-gray);
+  color: var(--font-primary);
+  border: solid var(--bg-secondary) 1px;
+  border-radius: 5px;
+  padding-block: 2px;
+  padding-inline: 10px;
+  cursor: pointer;
 }

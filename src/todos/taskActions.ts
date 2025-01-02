@@ -1,6 +1,6 @@
 import { TASK, TaskId, TODO, TodoID } from "../types/todo";
 import { STATUS } from "../enums/enums";
-import { renderTasks } from "./renderTodos";
+import { renderTasks } from "./rendering";
 import { todos } from "./todos";
 
 export const createTask = (text: string, id: TodoID) => {
@@ -34,4 +34,27 @@ export const deleteTask = (taskId: TaskId) => {
   const taskIndex: number = todoTarget.tasks.findIndex((task) => task.id === taskId);
   todoTarget.tasks.splice(taskIndex, 1);
   renderTasks(todoTarget.id);
+};
+
+export const filterPendingTasks = (todoId: TodoID) => {
+  const todoTarget: TODO | undefined = todos.find((el) => el.id === todoId);
+  if (todoTarget) {
+    const filteredTasks = todoTarget.tasks.filter((task) => task.status === STATUS.PENDING);
+    renderTasks(todoId, filteredTasks);
+  }
+};
+
+export const showAllTasks = (todoId: TodoID) => {
+  const todoTarget: TODO | undefined = todos.find((el) => el.id === todoId);
+  if (todoTarget) {
+    renderTasks(todoId);
+  }
+};
+
+export const emptyTasks = (todoId: TodoID) => {
+  const todoTarget: TODO | undefined = todos.find((el) => el.id === todoId);
+  if (todoTarget) {
+    todoTarget.tasks = [];
+    renderTasks(todoId);
+  }
 };
