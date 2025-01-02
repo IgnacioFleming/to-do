@@ -1,6 +1,9 @@
 import { TASK, TODO } from "../types/todo";
+import { createTask } from "./taskActions";
 
 export const renderTasks = (tasks: TASK[], todo: HTMLDivElement) => {
+  const tasksSection = todo.querySelector(".tasks") as HTMLDivElement;
+  tasksSection.innerHTML = "";
   tasks.forEach((task) => {
     const taskDiv = document.createElement("div");
     taskDiv.className = "task";
@@ -8,7 +11,7 @@ export const renderTasks = (tasks: TASK[], todo: HTMLDivElement) => {
     <input type="checkbox" />
     <div class="taskText">${task.text}</div>
     `;
-    todo.appendChild(taskDiv);
+    tasksSection.appendChild(taskDiv);
   });
 };
 
@@ -27,5 +30,17 @@ export const renderTodos = (todos: TODO[]) => {
                     `;
     todosSection.appendChild(newTodo);
     renderTasks(todo.tasks, newTodo);
+    const input = document.querySelector(".newTask input") as HTMLInputElement;
+    if (input) {
+      input.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+          const target = e.target as HTMLInputElement;
+          createTask(target?.value, todo.id, todos);
+          console.log(todos);
+          // const targetTodo = document.getElementById(todo.id) as HTMLDivElement;
+          // renderTasks(todos[todo.id].tasks, targetTodo);
+        }
+      });
+    }
   });
 };
