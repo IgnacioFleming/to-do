@@ -15,6 +15,7 @@ export const renderTasks = (id: TodoID) => {
       taskDiv.innerHTML = `
       <input type="checkbox" ${task.status === STATUS.COMPLETED ? "checked" : ""} />
       <div class="taskText">${task.text}</div>
+      <img src="/icons/icon-delete.svg" class="deleteIcon" />
       `;
       tasksSection.appendChild(taskDiv);
       const checkbox = taskDiv.querySelector(`input`) as HTMLInputElement;
