@@ -1,6 +1,6 @@
 import { STATUS } from "../enums/enums";
 import { TODO, TodoID } from "../types/todo";
-import { createTask, handleTaskCheck } from "./taskActions";
+import { createTask, deleteTask, handleTaskCheck } from "./taskActions";
 import { todos } from "./todos";
 
 export const renderTasks = (id: TodoID) => {
@@ -14,12 +14,20 @@ export const renderTasks = (id: TodoID) => {
       taskDiv.id = task.id;
       taskDiv.innerHTML = `
       <input type="checkbox" ${task.status === STATUS.COMPLETED ? "checked" : ""} />
-      <div class="taskText">${task.text}</div>
-      <img src="/icons/icon-delete.svg" class="deleteIcon" />
+      <div class="textContainer">
+      <div class="taskText">
+      <p>${task.text}</p>
+      </div>
+      </div>
+      <div class="deleteIcon" >
+      <img src="/icons/icon-delete.svg" />
+      </div>
       `;
       tasksSection.appendChild(taskDiv);
       const checkbox = taskDiv.querySelector(`input`) as HTMLInputElement;
       checkbox.addEventListener("click", () => handleTaskCheck(id, task.id));
+      const deleteIcon = taskDiv.querySelector(".deleteIcon") as HTMLDivElement;
+      deleteIcon.addEventListener("click", () => deleteTask(task.id));
     });
   }
   console.log(todos);

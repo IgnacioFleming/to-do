@@ -48,7 +48,7 @@ header {
   height: 400px;
   border: 3px var(--bg-secondary) solid;
   border-radius: 5px;
-  font-size: 20px;
+  font-size: 14px;
   overflow-y: auto;
 }
 
@@ -57,6 +57,7 @@ header {
   display: flex;
   align-items: center;
   gap: 10px;
+  width: 100%;
 }
 
 .task input {
@@ -68,7 +69,6 @@ header {
   background-color: var(--bg-secondary);
   border-radius: 50%;
   cursor: pointer;
-  display: inline-block;
 }
 
 .task input:checked {
@@ -77,25 +77,8 @@ header {
   background-size: 85%;
 }
 
-.task > div {
-  position: relative;
-  line-height: 1;
-}
-
-.task input + div::before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 0;
-  height: 2px;
-  width: 0%;
-  background-color: var(--bg-secondary);
-  transform: translateY(100%);
-  transition: width 0.2s ease;
-}
-
-.task input:checked + div::before {
-  width: 100%;
+.task input:checked + .textContainer .taskText p {
+  text-decoration-line: line-through;
 }
 
 .newTask {
@@ -122,4 +105,31 @@ header {
   font-size: large;
   font-weight: 500;
   cursor: pointer;
+}
+
+.deleteIcon {
+  width: 30px;
+  height: 30px;
+}
+.deleteIcon img {
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+.taskText {
+  position: relative;
+  display: flex;
+  max-width: 100%;
+  align-items: center;
+}
+.textContainer {
+  width: calc(100% - 80px);
+}
+.taskText p {
+  position: relative;
+  display: inline-block;
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 100%;
+  word-break: break-word;
 }

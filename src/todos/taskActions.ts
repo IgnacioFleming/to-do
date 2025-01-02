@@ -26,3 +26,12 @@ export const handleTaskCheck = (todoId: TodoID, taskId: TaskId) => {
   }
   return;
 };
+
+export const deleteTask = (taskId: TaskId) => {
+  console.log("delete task");
+  const todoTarget: TODO | undefined = todos.find((todo) => todo.tasks.some((el) => el.id === taskId));
+  if (!todoTarget) return;
+  const taskIndex: number = todoTarget.tasks.findIndex((task) => task.id === taskId);
+  todoTarget.tasks.splice(taskIndex, 1);
+  renderTasks(todoTarget.id);
+};
