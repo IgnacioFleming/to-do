@@ -43,6 +43,7 @@ export const renderTodos = () => {
     newTodo.innerHTML = `   
       <div class="container">
         <header>
+          <h1>Title</h1>
           <div class="newTask">
           <input type="text" />
           </div>

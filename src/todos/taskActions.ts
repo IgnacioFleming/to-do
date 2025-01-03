@@ -15,6 +15,7 @@ export const createTask = (text: string, id: TodoID) => {
     todoTarget.tasks.push(task);
     const tasks = todos.find((el) => el.id === id)?.tasks;
     if (tasks) renderTasks(id);
+    localStorage.setItem("todos", JSON.stringify(todos));
   }
 };
 
@@ -23,6 +24,7 @@ export const handleTaskCheck = (todoId: TodoID, taskId: TaskId) => {
   if (taskTarget) {
     if (taskTarget.status === STATUS.PENDING) taskTarget.status = STATUS.COMPLETED;
     else taskTarget.status = STATUS.PENDING;
+    localStorage.setItem("todos", JSON.stringify(todos));
   }
   return;
 };
@@ -34,6 +36,7 @@ export const deleteTask = (taskId: TaskId) => {
   const taskIndex: number = todoTarget.tasks.findIndex((task) => task.id === taskId);
   todoTarget.tasks.splice(taskIndex, 1);
   renderTasks(todoTarget.id);
+  localStorage.setItem("todos", JSON.stringify(todos));
 };
 
 export const filterPendingTasks = (todoId: TodoID) => {
@@ -56,5 +59,6 @@ export const emptyTasks = (todoId: TodoID) => {
   if (todoTarget) {
     todoTarget.tasks = [];
     renderTasks(todoId);
+    localStorage.setItem("todos", JSON.stringify(todos));
   }
 };

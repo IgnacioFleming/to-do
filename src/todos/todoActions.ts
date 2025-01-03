@@ -9,4 +9,11 @@ export const createTodo = () => {
   };
   todos.push(todo);
   renderTodos();
+  localStorage.setItem("todos", JSON.stringify(todos));
+};
+
+export const deleteAll = () => {
+  todos.splice(0);
+  renderTodos();
+  localStorage.setItem("todos", JSON.stringify(todos));
 };
