@@ -1,6 +1,7 @@
 import { STATUS } from "../enums/enums";
 import { TASK, TODO, TodoID } from "../types/todo";
-import { createTask, deleteTask, emptyTasks, filterPendingTasks, handleTaskCheck, showAllTasks } from "./taskActions";
+import { createTask, deleteTask, handleTaskCheck } from "./taskActions";
+import { deleteTodo, emptyTasks, filterPendingTasks, showAllTasks } from "./todoActions";
 import { todos } from "./todos";
 
 export const renderTasks = (id: TodoID, filteredTasks?: TASK[]) => {
@@ -21,7 +22,7 @@ export const renderTasks = (id: TodoID, filteredTasks?: TASK[]) => {
       </div>
       </div>
       <div class="deleteIcon" >
-      <img src="/icons/icon-delete.svg" />
+      <img src="/icons/deleteIcon.svg" alt="icon" />
       </div>
       `;
       tasksSection.appendChild(taskDiv);
@@ -43,7 +44,12 @@ export const renderTodos = () => {
     newTodo.innerHTML = `   
       <div class="container">
         <header>
+          <div>
           <h1>Title</h1>
+          <div class="deleteTodo">
+           <img src="/icons/deleteIcon.svg" alt="icon" />
+          </div>
+          </div>
           <div class="newTask">
           <input type="text" />
           </div>
@@ -53,7 +59,7 @@ export const renderTodos = () => {
           <div>
         </section>
         <footer>
-          <button id="all-btn">All</button>
+          <button class="toggled" id="all-btn">All</button>
           <button id="pending-btn">Pending</button>
           <button id="empty-btn">Empty All</button>
         </footer>
@@ -78,5 +84,7 @@ export const renderTodos = () => {
     showAllTasksButton.addEventListener("click", () => showAllTasks(todo.id));
     const emptyAllTasksButton = todoDiv.querySelector("#empty-btn") as HTMLButtonElement;
     emptyAllTasksButton.addEventListener("click", () => emptyTasks(todo.id));
+    const deleteTodoIcon = todoDiv.querySelector(".deleteTodo img") as HTMLSpanElement;
+    deleteTodoIcon.addEventListener("click", () => deleteTodo(todo.id));
   });
 };

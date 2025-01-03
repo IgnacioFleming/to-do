@@ -1,0 +1,85 @@
+.task {
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  width: 100%;
+}
+
+.task input {
+  appearance: none;
+  height: 30px;
+  width: 30px;
+  padding: 0px;
+  margin: 0;
+  background-color: var(--bg-secondary);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.task input:checked {
+  background-image: url("/icons/check.svg");
+  background-position: center;
+  background-size: 85%;
+}
+
+.task input:checked + .textContainer .taskText p {
+  text-decoration-line: line-through;
+}
+
+.tasksContainer {
+  overflow-y: auto;
+  flex-grow: 1;
+}
+
+.newTask {
+  padding: 15px;
+  width: 100%;
+}
+
+.newTask input {
+  width: 100%;
+  font-size: 16px;
+  height: 50px;
+  background-color: var(--bg-dark-gray);
+  color: var(--font-primary);
+  border: 1px solid var(--bg-secondary);
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.newTask input:focus {
+  background-color: black;
+}
+.deleteIcon {
+  width: 15px;
+  height: 15px;
+}
+.deleteIcon img {
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
+.deleteIcon:hover img {
+  transform: scale(1.3);
+  filter: invert(33%) sepia(100%) saturate(6230%) hue-rotate(331deg) brightness(101%) contrast(101%);
+}
+.taskText {
+  position: relative;
+  display: flex;
+  max-width: 100%;
+  align-items: center;
+  flex-grow: 1;
+}
+.textContainer {
+  flex-grow: 1;
+}
+.taskText p {
+  position: relative;
+  display: inline-block;
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 100%;
+  word-break: break-word;
+}

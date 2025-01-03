@@ -13,3 +13,13 @@ export type TODO = {
   id: UUID;
   tasks: TASK[];
 };
+
+type ButtonSettings = {
+  selector: string;
+  toggle?: boolean;
+};
+
+export type SetToggleButton = {
+  todoId: TodoID;
+  settings: ButtonSettings[];
+};

@@ -1,0 +1,22 @@
+body {
+  background-color: var(--bg-primary);
+  color: white;
+}
+
+header {
+  padding: 30px;
+}
+
+nav {
+  margin: 20px;
+}
+
+.menu {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+}
+
+.mainTitle {
+  text-align: center;
+}
