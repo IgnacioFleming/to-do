@@ -1,6 +1,6 @@
 import { TASK, TaskId, TODO, TodoID } from "../types/todo";
 import { STATUS } from "../enums/enums";
-import { renderTasks } from "./rendering";
+import { renderNewTask } from "./rendering";
 import { todos } from "./todos";
 import { setDisabledClassToButton } from "../helpers/todoButtons";
 
@@ -14,9 +14,8 @@ export const createTask = (text: string, id: TodoID) => {
       text,
     };
     todoTarget.tasks.push(task);
-    const tasks = todos.find((el) => el.id === id)?.tasks;
+    renderNewTask({ id, task, singleRendering: true });
     setDisabledClassToButton({ todoId: id, settings: [{ selector: "#pending-btn" }, { selector: "#empty-btn" }] });
-    if (tasks) renderTasks(id);
     localStorage.setItem("todos", JSON.stringify(todos));
   }
 };
@@ -44,6 +43,10 @@ export const deleteTask = (taskId: TaskId) => {
         { selector: "#empty-btn", disabled: true },
       ],
     });
-  renderTasks(todoTarget.id);
+  const task = document.getElementById(taskId) as HTMLDivElement;
+  task.classList.add("fadeOut");
+  task.addEventListener("animationend", () => {
+    task.remove();
+  });
   localStorage.setItem("todos", JSON.stringify(todos));
 };

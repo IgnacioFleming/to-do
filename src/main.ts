@@ -1,5 +1,6 @@
 import { renderTodos } from "./todos/rendering.ts";
 import { createTodo, deleteAll } from "./todos/todoActions.ts";
+import "./layout/layout.ts";
 
 renderTodos();
 const addToDo = document.getElementById("addToDo") as HTMLButtonElement;

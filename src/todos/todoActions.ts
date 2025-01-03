@@ -77,7 +77,6 @@ export const checkTodoHasTasks = (todo: TODO): boolean => {
 };
 
 const setTitle = (e: KeyboardEvent, todoId: TodoID) => {
-  if (e.key !== "Enter") return;
   const todoIndex: number = todos.findIndex((el) => el.id === todoId);
   if (todoIndex > -1) {
     const target = e.target as HTMLInputElement;
@@ -89,12 +88,33 @@ const setTitle = (e: KeyboardEvent, todoId: TodoID) => {
   }
 };
 
+const cancelTitleEdit = (todoId: TodoID) => {
+  const todo = todos.find((el) => el.id === todoId);
+  if (todo) {
+    const titleContainer = document.getElementById(todoId)?.querySelector(".container header div") as HTMLDivElement;
+    titleContainer.innerHTML = `
+    <h1>${todo.title}</h1>
+    <div class="deleteTodo">
+      <img src="/icons/deleteIcon.svg" alt="icon" />
+    </div>
+    `;
+    const heading = titleContainer.querySelector("h1") as HTMLHeadingElement;
+    heading.addEventListener("click", () => setTitleEditable(todoId));
+    const deleteTodoIcon = titleContainer.querySelector(".deleteTodo img") as HTMLSpanElement;
+    deleteTodoIcon.addEventListener("click", () => deleteTodo(todo.id));
+  }
+};
+
 export const setTitleEditable = (todoId: TodoID) => {
   const titleContainer = document.getElementById(todoId)?.querySelector(".container header div") as HTMLDivElement;
   const title = titleContainer?.querySelector("h1")?.textContent as string;
   titleContainer.innerHTML = `
-    <input type="text" class="titleInput" placeholder="Enter to set a new Title" value="${title}" / >
+    <input type="text" class="titleInput" placeholder="Press Enter to set a new Title" value="${title}" / >
   `;
   const input = titleContainer.querySelector(".titleInput") as HTMLInputElement;
-  input.addEventListener("keydown", (e) => setTitle(e, todoId));
+  input.focus();
+  input.selectionEnd = input.value.length;
+  input.addEventListener("keydown", (e) => e.key === "Enter" && setTitle(e, todoId));
+  input.addEventListener("focusout", () => cancelTitleEdit(todoId));
+  input.addEventListener("keydown", (e) => e.key === "Escape" && cancelTitleEdit(todoId));
 };

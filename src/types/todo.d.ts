@@ -30,3 +30,11 @@ export type RenderTodoOptions = {
   todo: TODO;
   animate?: boolean;
 };
+
+type RenderTaskOptions = {
+  id: TodoID;
+  task: TASK;
+  singleRendering?: boolean;
+};
+
+export type TaskRendering = (options: RenderTaskOptions) => void;

@@ -1,6 +1,6 @@
 import { STATUS } from "../enums/enums";
 import { setDisabledClassToButton } from "../helpers/todoButtons";
-import { RenderTodoOptions, TASK, TODO, TodoID } from "../types/todo";
+import { RenderTodoOptions, TASK, TaskRendering, TODO, TodoID } from "../types/todo";
 import { createTask, deleteTask, handleTaskCheck } from "./taskActions";
 import { deleteTodo, emptyTasks, filterPendingTasks, setTitleEditable, showAllTasks } from "./todoActions";
 import { todos } from "./todos";
@@ -11,11 +11,17 @@ export const renderTasks = (id: TodoID, filteredTasks?: TASK[]) => {
   const todo: TODO | undefined = todos.find((el) => el.id === id);
   if (todo) {
     const tasks = filteredTasks || todo.tasks;
-    tasks.forEach((task) => {
-      const taskDiv = document.createElement("div");
-      taskDiv.className = "task";
-      taskDiv.id = task.id;
-      taskDiv.innerHTML = `
+    tasks.forEach((task) => renderNewTask({ id, task }));
+  }
+};
+
+export const renderNewTask: TaskRendering = ({ id, task, singleRendering = false }) => {
+  const tasksSection = document.getElementById(id)?.querySelector(".tasks") as HTMLDivElement;
+  const taskDiv = document.createElement("div");
+  taskDiv.className = "task";
+  if (singleRendering) taskDiv.classList.add("fadeIn");
+  taskDiv.id = task.id;
+  taskDiv.innerHTML = `
       <input type="checkbox" ${task.status === STATUS.COMPLETED ? "checked" : ""} />
       <div class="textContainer">
       <div class="taskText">
@@ -26,13 +32,11 @@ export const renderTasks = (id: TodoID, filteredTasks?: TASK[]) => {
       <img src="/icons/deleteIcon.svg" alt="icon" />
       </div>
       `;
-      tasksSection.appendChild(taskDiv);
-      const checkbox = taskDiv.querySelector(`input`) as HTMLInputElement;
-      checkbox.addEventListener("click", () => handleTaskCheck(id, task.id));
-      const deleteIcon = taskDiv.querySelector(".deleteIcon") as HTMLDivElement;
-      deleteIcon.addEventListener("click", () => deleteTask(task.id));
-    });
-  }
+  tasksSection.appendChild(taskDiv);
+  const checkbox = taskDiv.querySelector(`input`) as HTMLInputElement;
+  checkbox.addEventListener("click", () => handleTaskCheck(id, task.id));
+  const deleteIcon = taskDiv.querySelector(".deleteIcon") as HTMLDivElement;
+  deleteIcon.addEventListener("click", () => deleteTask(task.id));
 };
 
 export const renderTodos = (todo?: TODO) => {
@@ -58,7 +62,7 @@ const renderNewTodo = ({ todo, animate }: RenderTodoOptions) => {
           </div>
           </div>
           <div class="newTask">
-          <input type="text" placeholder="Press Enter to add a task" />
+          <input type="text" placeholder="Press Enter to add a new task" />
           </div>
         </header>
         <section class="tasksContainer">
@@ -102,6 +106,5 @@ const renderNewTodo = ({ todo, animate }: RenderTodoOptions) => {
   const deleteTodoIcon = todoDiv.querySelector(".deleteTodo img") as HTMLSpanElement;
   deleteTodoIcon.addEventListener("click", () => deleteTodo(todo.id));
   const heading = todoDiv.querySelector(".container header div h1") as HTMLHeadingElement;
-  console.log(heading);
   heading.addEventListener("click", () => setTitleEditable(todo.id));
 };

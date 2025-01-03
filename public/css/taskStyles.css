@@ -4,6 +4,26 @@
   align-items: center;
   gap: 15px;
   width: 100%;
+  opacity: 1;
+}
+
+.task.fadeIn {
+  animation: task-show 0.3s ease-in-out;
+}
+.task.fadeOut {
+  animation: task-hide 0.3s ease-in-out;
+}
+
+@keyframes task-show {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes task-hide {
+  to {
+    opacity: 0;
+  }
 }
 
 .task input {
@@ -17,6 +37,7 @@
   cursor: pointer;
   position: relative;
   transition: background-image 0.8s ease;
+  box-shadow: 0px 2px 10px rgb(163, 163, 163);
 }
 
 .task input::after {
@@ -37,12 +58,6 @@
   transform: scale(1);
 }
 
-/* .task input:checked {
-  background-image: url("/icons/check.svg");
-  background-position: center;
-  background-size: 85%;
-} */
-
 .task input:checked + .textContainer .taskText p {
   text-decoration-line: line-through;
 }
@@ -50,6 +65,17 @@
 .tasksContainer {
   overflow-y: auto;
   flex-grow: 1;
+  scrollbar-width: thin;
+}
+
+.tasksContainer::-webkit-scrollbar {
+  width: 6px;
+}
+
+.tasksContainer::-webkit-scrollbar-button {
+  display: none;
+  width: 0;
+  height: 0;
 }
 
 .newTask {
@@ -61,15 +87,27 @@
   width: 100%;
   font-size: 16px;
   height: 50px;
-  background-color: var(--bg-dark-gray);
+  background-color: var(--main-yellow);
   color: var(--font-primary);
-  border: 1px solid var(--bg-secondary);
+  border: 2px solid var(--dark-gray);
   padding: 5px;
   border-radius: 5px;
+  outline: none;
+  opacity: 0.8;
+  transition: opacity 0.3s ease-in-out;
+}
+.newTask input::placeholder {
+  color: var(--bg-dark-gray);
 }
 
 .newTask input:focus {
-  background-color: black;
+  background-color: var(--bg-primary);
+  border: 3px solid var(--bg-light-gray);
+  opacity: 1;
+}
+
+.newTask input:focus::placeholder {
+  color: var(--light-gray);
 }
 .deleteIcon {
   width: 15px;
@@ -91,6 +129,8 @@
   max-width: 100%;
   align-items: center;
   flex-grow: 1;
+  font-size: medium;
+  color: var(--bg-dark-gray);
 }
 .textContainer {
   flex-grow: 1;
@@ -103,4 +143,5 @@
   max-width: 100%;
   word-break: break-word;
   transition: text-decoration-line 0.3s ease;
+  color: var(--bg-dark-gray);
 }
