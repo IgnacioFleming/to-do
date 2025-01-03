@@ -11,6 +11,10 @@
   transition: all 0.3s ease;
 }
 
+#todos.growOut {
+  animation: todosSection-growOut 1s ease;
+}
+
 .todo {
   width: 350px;
   height: 500px;
@@ -24,30 +28,6 @@
 }
 .todo.growOut {
   animation: toDo-growOut 0.3s ease;
-}
-
-@keyframes toDo-growIn {
-  from {
-    transform: scale(0.3);
-    opacity: 0;
-  }
-  to {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
-@keyframes toDo-growOut {
-  from {
-    transform: scale(1);
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-    transform: scale(0);
-    height: 0;
-    margin: 0;
-    padding: 0;
-  }
 }
 
 .todo .container {
@@ -153,4 +133,44 @@
   border-color: var(--dark-gray);
   opacity: 0.5;
   pointer-events: none;
+}
+
+@keyframes toDo-growIn {
+  from {
+    transform: scale(0.3);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+@keyframes toDo-growOut {
+  from {
+    transform: scale(1);
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+    transform: scale(0);
+    height: 0;
+    margin: 0;
+    padding: 0;
+  }
+}
+@keyframes todosSection-growOut {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  25% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0);
+    height: 0;
+    margin: 0;
+    padding: 0;
+  }
 }

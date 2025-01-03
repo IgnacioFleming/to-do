@@ -16,9 +16,15 @@ export const createTodo = () => {
 };
 
 export const deleteAll = () => {
-  todos.splice(0);
-  renderTodos();
-  localStorage.setItem("todos", JSON.stringify(todos));
+  const todosSection = document.getElementById("todos") as HTMLDivElement;
+  console.log(todosSection);
+  todosSection.classList.add("growOut");
+  setTimeout(() => {
+    todosSection.classList.remove("growOut");
+    todos.splice(0);
+    todosSection.innerHTML = "";
+    localStorage.setItem("todos", JSON.stringify(todos));
+  }, 950);
 };
 
 export const deleteTodo = (todoId: TodoID) => {
