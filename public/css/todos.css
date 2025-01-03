@@ -34,6 +34,15 @@
   text-align: center;
   flex-grow: 1;
 }
+
+.todo .titleInput {
+  width: 100%;
+  height: 40px;
+  margin-inline: 30px;
+  padding: 10px;
+  font-size: 18px;
+}
+
 .todo .container header > div {
   display: flex;
   width: 100%;

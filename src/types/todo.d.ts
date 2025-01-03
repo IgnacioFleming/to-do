@@ -11,15 +11,17 @@ export type TASK = {
 
 export type TODO = {
   id: UUID;
+  title: string;
   tasks: TASK[];
 };
 
 type ButtonSettings = {
   selector: string;
   toggle?: boolean;
+  disabled?: boolean;
 };
 
-export type SetToggleButton = {
+export type SetClassToButton = {
   todoId: TodoID;
   settings: ButtonSettings[];
 };

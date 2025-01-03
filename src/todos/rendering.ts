@@ -1,7 +1,8 @@
 import { STATUS } from "../enums/enums";
+import { setDisabledClassToButton } from "../helpers/todoButtons";
 import { TASK, TODO, TodoID } from "../types/todo";
 import { createTask, deleteTask, handleTaskCheck } from "./taskActions";
-import { deleteTodo, emptyTasks, filterPendingTasks, showAllTasks } from "./todoActions";
+import { deleteTodo, emptyTasks, filterPendingTasks, setTitleEditable, showAllTasks } from "./todoActions";
 import { todos } from "./todos";
 
 export const renderTasks = (id: TodoID, filteredTasks?: TASK[]) => {
@@ -45,7 +46,7 @@ export const renderTodos = () => {
       <div class="container">
         <header>
           <div>
-          <h1>Title</h1>
+          <h1>${todo.title}</h1>
           <div class="deleteTodo">
            <img src="/icons/deleteIcon.svg" alt="icon" />
           </div>
@@ -66,6 +67,14 @@ export const renderTodos = () => {
       </div>
                     `;
     todosSection.appendChild(newTodo);
+    if (todo.tasks.length <= 0)
+      setDisabledClassToButton({
+        todoId: todo.id,
+        settings: [
+          { selector: "#pending-btn", disabled: true },
+          { selector: "#empty-btn", disabled: true },
+        ],
+      });
     renderTasks(todo.id);
     const todoDiv = document.getElementById(todo.id) as HTMLDivElement;
     const input = todoDiv.querySelector(".newTask input") as HTMLInputElement;
@@ -86,5 +95,8 @@ export const renderTodos = () => {
     emptyAllTasksButton.addEventListener("click", () => emptyTasks(todo.id));
     const deleteTodoIcon = todoDiv.querySelector(".deleteTodo img") as HTMLSpanElement;
     deleteTodoIcon.addEventListener("click", () => deleteTodo(todo.id));
+    const heading = todoDiv.querySelector(".container header div h1") as HTMLHeadingElement;
+    console.log(heading);
+    heading.addEventListener("dblclick", () => setTitleEditable(todo.id));
   });
 };

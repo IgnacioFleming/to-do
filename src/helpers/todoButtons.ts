@@ -1,9 +1,17 @@
-import { SetToggleButton } from "../types/todo";
+import { SetClassToButton } from "../types/todo";
 
-export const setToggleClass = ({ todoId, settings }: SetToggleButton) => {
+export const setToggleClasstoTodo = ({ todoId, settings }: SetClassToButton) => {
   const todoElement = document.getElementById(todoId) as HTMLDivElement;
   settings.forEach(({ selector, toggle = false }) => {
     const button = todoElement.querySelector(selector) as HTMLButtonElement;
-    toggle ? button.classList.add("toggled") : button.classList.remove("toggled");
+    return toggle ? button.classList.add("toggled") : button.classList.remove("toggled");
+  });
+};
+
+export const setDisabledClassToButton = ({ todoId, settings }: SetClassToButton) => {
+  const todoElement = document.getElementById(todoId) as HTMLDivElement;
+  settings.forEach(({ selector, disabled = false }) => {
+    const button = todoElement.querySelector(selector) as HTMLButtonElement;
+    return disabled ? button.setAttribute("disabled", "") : button.removeAttribute("disabled");
   });
 };
