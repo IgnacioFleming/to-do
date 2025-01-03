@@ -11,7 +11,7 @@ export const createTodo = () => {
     tasks: [],
   };
   todos.push(todo);
-  renderTodos();
+  renderTodos(todo);
   localStorage.setItem("todos", JSON.stringify(todos));
 };
 
@@ -24,9 +24,17 @@ export const deleteAll = () => {
 export const deleteTodo = (todoId: TodoID) => {
   const todoIndex: number = todos.findIndex((todo) => todo.id === todoId);
   if (todoIndex > -1) {
-    todos.splice(todoIndex, 1);
-    renderTodos();
-    localStorage.setItem("todos", JSON.stringify(todos));
+    const todo = document.getElementById(todoId) as HTMLDivElement;
+    todo.classList.add("growOut");
+    todo.addEventListener(
+      "animationend",
+      () => {
+        todo.remove();
+        todos.splice(todoIndex, 1);
+        localStorage.setItem("todos", JSON.stringify(todos));
+      },
+      { once: true }
+    );
   }
 };
 export const filterPendingTasks = (todoId: TodoID) => {

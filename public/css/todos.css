@@ -7,7 +7,8 @@
   justify-items: center;
   align-items: center;
   align-content: center;
-  gap: 10px;
+  gap: 50px;
+  transition: all 0.3s ease;
 }
 
 .todo {
@@ -16,6 +17,36 @@
   border: 3px var(--bg-secondary) solid;
   border-radius: 5px;
   font-size: 14px;
+}
+.todo.growIn {
+  animation: toDo-growIn 0.3s ease;
+}
+.todo.growOut {
+  animation: toDo-growOut 0.3s ease;
+}
+
+@keyframes toDo-growIn {
+  from {
+    transform: scale(0.3);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+@keyframes toDo-growOut {
+  from {
+    transform: scale(1);
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+    transform: scale(0);
+    height: 0;
+    margin: 0;
+    padding: 0;
+  }
 }
 
 .todo .container {
@@ -39,7 +70,7 @@
   font-size: 18px;
   word-wrap: break-word;
   word-break: break-word;
-  padding-inline: 20px;
+  margin-inline: 20px;
 }
 
 .todo .container header h1:hover {
@@ -57,6 +88,7 @@
 .todo .container header > div {
   display: flex;
   width: 100%;
+  gap: 10px;
 }
 .todo .container header div .deleteTodo {
   justify-self: flex-end;
@@ -94,6 +126,7 @@
   padding-block: 2px;
   padding-inline: 10px;
   cursor: pointer;
+  transition: background-color 0.3s ease-in-out, opacity 0.3s ease-in-out;
 }
 .todo footer button.toggled {
   background-color: var(--bg-secondary);
@@ -102,6 +135,7 @@
 .todo footer button:hover {
   background-color: var(--bg-secondary);
   color: var(--font-secondary);
+  opacity: 0.85;
 }
 
 .todo footer button:disabled {

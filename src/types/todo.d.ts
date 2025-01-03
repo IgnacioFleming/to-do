@@ -25,3 +25,8 @@ export type SetClassToButton = {
   todoId: TodoID;
   settings: ButtonSettings[];
 };
+
+export type RenderTodoOptions = {
+  todo: TODO;
+  animate?: boolean;
+};

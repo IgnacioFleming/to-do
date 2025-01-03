@@ -1,6 +1,6 @@
 import { STATUS } from "../enums/enums";
 import { setDisabledClassToButton } from "../helpers/todoButtons";
-import { TASK, TODO, TodoID } from "../types/todo";
+import { RenderTodoOptions, TASK, TODO, TodoID } from "../types/todo";
 import { createTask, deleteTask, handleTaskCheck } from "./taskActions";
 import { deleteTodo, emptyTasks, filterPendingTasks, setTitleEditable, showAllTasks } from "./todoActions";
 import { todos } from "./todos";
@@ -35,14 +35,20 @@ export const renderTasks = (id: TodoID, filteredTasks?: TASK[]) => {
   }
 };
 
-export const renderTodos = () => {
+export const renderTodos = (todo?: TODO) => {
   const todosSection = document.getElementById("todos") as HTMLDivElement;
+  if (todo) return renderNewTodo({ todo, animate: true });
   todosSection.innerHTML = "";
-  todos.forEach((todo: TODO) => {
-    const newTodo = document.createElement("div") as HTMLDivElement;
-    newTodo.className = "todo";
-    newTodo.id = todo.id;
-    newTodo.innerHTML = `   
+  todos.forEach((todo) => renderNewTodo({ todo }));
+};
+
+const renderNewTodo = ({ todo, animate }: RenderTodoOptions) => {
+  const todosSection = document.getElementById("todos") as HTMLDivElement;
+  const newTodo = document.createElement("div") as HTMLDivElement;
+  newTodo.className = "todo";
+  if (animate) newTodo.classList.add("growIn");
+  newTodo.id = todo.id;
+  newTodo.innerHTML = `   
       <div class="container">
         <header>
           <div>
@@ -66,37 +72,36 @@ export const renderTodos = () => {
         </footer>
       </div>
                     `;
-    todosSection.appendChild(newTodo);
-    if (todo.tasks.length <= 0)
-      setDisabledClassToButton({
-        todoId: todo.id,
-        settings: [
-          { selector: "#pending-btn", disabled: true },
-          { selector: "#empty-btn", disabled: true },
-        ],
-      });
-    renderTasks(todo.id);
-    const todoDiv = document.getElementById(todo.id) as HTMLDivElement;
-    const input = todoDiv.querySelector(".newTask input") as HTMLInputElement;
-    if (input) {
-      input.addEventListener("keydown", (e) => {
-        if (e.key === "Enter") {
-          const target = e.target as HTMLInputElement;
-          createTask(target?.value, todo.id);
-          target.value = "";
-        }
-      });
-    }
-    const pendingButton = todoDiv.querySelector("#pending-btn") as HTMLButtonElement;
-    pendingButton.addEventListener("click", () => filterPendingTasks(todo.id));
-    const showAllTasksButton = todoDiv.querySelector("#all-btn") as HTMLButtonElement;
-    showAllTasksButton.addEventListener("click", () => showAllTasks(todo.id));
-    const emptyAllTasksButton = todoDiv.querySelector("#empty-btn") as HTMLButtonElement;
-    emptyAllTasksButton.addEventListener("click", () => emptyTasks(todo.id));
-    const deleteTodoIcon = todoDiv.querySelector(".deleteTodo img") as HTMLSpanElement;
-    deleteTodoIcon.addEventListener("click", () => deleteTodo(todo.id));
-    const heading = todoDiv.querySelector(".container header div h1") as HTMLHeadingElement;
-    console.log(heading);
-    heading.addEventListener("click", () => setTitleEditable(todo.id));
-  });
+  todosSection.appendChild(newTodo);
+  if (todo.tasks.length <= 0)
+    setDisabledClassToButton({
+      todoId: todo.id,
+      settings: [
+        { selector: "#pending-btn", disabled: true },
+        { selector: "#empty-btn", disabled: true },
+      ],
+    });
+  renderTasks(todo.id);
+  const todoDiv = document.getElementById(todo.id) as HTMLDivElement;
+  const input = todoDiv.querySelector(".newTask input") as HTMLInputElement;
+  if (input) {
+    input.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        const target = e.target as HTMLInputElement;
+        createTask(target?.value, todo.id);
+        target.value = "";
+      }
+    });
+  }
+  const pendingButton = todoDiv.querySelector("#pending-btn") as HTMLButtonElement;
+  pendingButton.addEventListener("click", () => filterPendingTasks(todo.id));
+  const showAllTasksButton = todoDiv.querySelector("#all-btn") as HTMLButtonElement;
+  showAllTasksButton.addEventListener("click", () => showAllTasks(todo.id));
+  const emptyAllTasksButton = todoDiv.querySelector("#empty-btn") as HTMLButtonElement;
+  emptyAllTasksButton.addEventListener("click", () => emptyTasks(todo.id));
+  const deleteTodoIcon = todoDiv.querySelector(".deleteTodo img") as HTMLSpanElement;
+  deleteTodoIcon.addEventListener("click", () => deleteTodo(todo.id));
+  const heading = todoDiv.querySelector(".container header div h1") as HTMLHeadingElement;
+  console.log(heading);
+  heading.addEventListener("click", () => setTitleEditable(todo.id));
 };

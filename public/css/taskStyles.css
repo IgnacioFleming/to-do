@@ -15,13 +15,33 @@
   background-color: var(--bg-secondary);
   border-radius: 50%;
   cursor: pointer;
+  position: relative;
+  transition: background-image 0.8s ease;
 }
 
-.task input:checked {
+.task input::after {
+  content: "";
+  position: absolute;
+  inset: 0;
   background-image: url("/icons/check.svg");
   background-position: center;
   background-size: 85%;
+  background-repeat: no-repeat;
+  opacity: 0;
+  transform: scale(0.5);
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
+
+.task input:checked::after {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* .task input:checked {
+  background-image: url("/icons/check.svg");
+  background-position: center;
+  background-size: 85%;
+} */
 
 .task input:checked + .textContainer .taskText p {
   text-decoration-line: line-through;
@@ -82,4 +102,5 @@
   flex-wrap: wrap;
   max-width: 100%;
   word-break: break-word;
+  transition: text-decoration-line 0.3s ease;
 }

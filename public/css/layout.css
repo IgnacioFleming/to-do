@@ -30,14 +30,19 @@ nav {
   font-weight: 500;
   cursor: pointer;
   border: 2px solid var(--dark-green);
+  transition: background-color 0.3s ease-in-out, opacity 0.3s ease-in-out;
 }
 
 .btn#deleteAll:hover {
-  background-color: var(--main-red);
   border: 1px solid var(--bg-secondary);
   color: var(--font-primary);
+  background-color: var(--main-red);
+  opacity: 0.8;
 }
 
 .btn#addToDo:hover {
+  background-color: var(--main-blue);
   color: var(--font-primary);
+  border: 1px solid var(--bg-secondary);
+  opacity: 0.8;
 }
