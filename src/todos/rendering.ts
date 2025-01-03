@@ -52,7 +52,7 @@ export const renderTodos = () => {
           </div>
           </div>
           <div class="newTask">
-          <input type="text" />
+          <input type="text" placeholder="Press Enter to add a task" />
           </div>
         </header>
         <section class="tasksContainer">
@@ -97,6 +97,6 @@ export const renderTodos = () => {
     deleteTodoIcon.addEventListener("click", () => deleteTodo(todo.id));
     const heading = todoDiv.querySelector(".container header div h1") as HTMLHeadingElement;
     console.log(heading);
-    heading.addEventListener("dblclick", () => setTitleEditable(todo.id));
+    heading.addEventListener("click", () => setTitleEditable(todo.id));
   });
 };

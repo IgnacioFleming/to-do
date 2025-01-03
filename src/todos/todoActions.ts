@@ -68,17 +68,25 @@ export const checkTodoHasTasks = (todo: TODO): boolean => {
   return todo.tasks.length <= 0 ? false : true;
 };
 
-const setTitle = (todoId: TodoID, title: string) => {
-  const todoTarget: TODO | undefined = todos.find((el) => el.id === todoId);
-  if (todoTarget) {
-    todoTarget.title = title;
+const setTitle = (e: KeyboardEvent, todoId: TodoID) => {
+  if (e.key !== "Enter") return;
+  const todoIndex: number = todos.findIndex((el) => el.id === todoId);
+  if (todoIndex > -1) {
+    const target = e.target as HTMLInputElement;
+    const updatedTodo = { ...todos[todoIndex] };
+    updatedTodo.title = target.value;
+    todos.splice(todoIndex, 1, updatedTodo);
+    renderTodos();
+    localStorage.setItem("todos", JSON.stringify(todos));
   }
 };
 
 export const setTitleEditable = (todoId: TodoID) => {
-  console.log("double click");
   const titleContainer = document.getElementById(todoId)?.querySelector(".container header div") as HTMLDivElement;
+  const title = titleContainer?.querySelector("h1")?.textContent as string;
   titleContainer.innerHTML = `
-    <input type="text" class="titleInput" placeholder="Title" / >
+    <input type="text" class="titleInput" placeholder="Enter to set a new Title" value="${title}" / >
   `;
+  const input = titleContainer.querySelector(".titleInput") as HTMLInputElement;
+  input.addEventListener("keydown", (e) => setTitle(e, todoId));
 };

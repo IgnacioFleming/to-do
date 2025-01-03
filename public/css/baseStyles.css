@@ -10,9 +10,11 @@
   --bg-secondary: #fff;
   --font-primary: #fff;
   --font-secondary: #1c1c1c;
-  --component-primary: #15de47;
+  --main-green: #15de47;
+  --dark-green: #025b18;
   --bg-dark-gray: #383838;
   --main-gray: #808080;
   --light-gray: #d3d3d3;
   --dark-gray: #a9a9a9;
+  --main-red: #ba0c0c;
 }

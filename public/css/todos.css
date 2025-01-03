@@ -33,6 +33,17 @@
 .todo .container header h1 {
   text-align: center;
   flex-grow: 1;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  text-transform: capitalize;
+  font-size: 18px;
+  word-wrap: break-word;
+  word-break: break-word;
+  padding-inline: 20px;
+}
+
+.todo .container header h1:hover {
+  transform: scale(1.1);
 }
 
 .todo .titleInput {
@@ -52,6 +63,9 @@
   height: 20px;
   cursor: pointer;
   transition: transform 0.2s ease-in-out;
+  display: flex;
+  align-items: center;
+  margin-right: 5px;
 }
 
 .todo .container header div .deleteTodo:hover {
@@ -62,18 +76,8 @@
 .todo .container header div .deleteTodo img {
   width: 15px;
   height: 15px;
-  transform: translateY(50%) translateX(-50%);
 }
 
-.btn {
-  background-color: var(--component-primary);
-  color: var(--font-secondary);
-  padding: 5px;
-  border-radius: 5px;
-  font-size: large;
-  font-weight: 500;
-  cursor: pointer;
-}
 .todo footer {
   display: flex;
   justify-content: center;
