@@ -115,16 +115,35 @@
   color: var(--font-secondary);
   border: solid var(--dark-yellow) 1px;
 }
-.todo footer button:hover {
-  background-color: var(--main-yellow);
-  border: solid var(--dark-yellow) 1px;
-  color: var(--font-secondary);
-  opacity: 0.85;
+
+@media (hover: hover) {
+  .todo footer button:hover {
+    background-color: var(--main-yellow);
+    border: solid var(--dark-yellow) 1px;
+    color: var(--font-secondary);
+    opacity: 0.85;
+  }
+
+  .todo footer button#empty-btn:hover {
+    background-color: var(--main-red);
+    border: solid var(--dark-red) 1px;
+    color: var(--font-primary);
+  }
 }
-.todo footer button#empty-btn:hover {
-  background-color: var(--main-red);
-  border: solid var(--dark-red) 1px;
-  color: var(--font-primary);
+
+@media (hover: none) {
+  .todo footer button:active {
+    background-color: var(--main-yellow);
+    border: solid var(--dark-yellow) 1px;
+    color: var(--font-secondary);
+    opacity: 0.85;
+  }
+
+  .todo footer button#empty-btn:active {
+    background-color: var(--main-red);
+    border: solid var(--dark-red) 1px;
+    color: var(--font-primary);
+  }
 }
 
 .todo footer button:disabled {

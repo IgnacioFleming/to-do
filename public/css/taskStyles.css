@@ -30,6 +30,7 @@
   appearance: none;
   height: 30px;
   width: 30px;
+  flex-shrink: 0;
   padding: 0px;
   margin: 0;
   background-color: var(--bg-secondary);
@@ -112,6 +113,7 @@
 .deleteIcon {
   width: 15px;
   height: 15px;
+  flex-shrink: 0;
 }
 .deleteIcon img {
   width: 100%;

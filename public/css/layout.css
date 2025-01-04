@@ -44,20 +44,41 @@ nav {
   height: 100%;
 }
 
-.btn#addToDo img:hover {
-  opacity: 0.8;
-}
+@media (hover: hover) {
+  .btn#addToDo img:hover {
+    opacity: 0.8;
+  }
 
-.btn#deleteAll:hover {
-  border: 1px solid var(--dark-red);
-  color: var(--font-primary);
-  background-color: var(--main-red);
-  opacity: 0.8;
-}
+  .btn#deleteAll:hover {
+    border: 1px solid var(--dark-red);
+    color: var(--font-primary);
+    background-color: var(--main-red);
+    opacity: 0.8;
+  }
 
-.btn#addToDo:hover {
-  background-color: var(--main-green);
-  color: var(--font-primary);
-  border: 1px solid var(--dark-green);
-  opacity: 0.8;
+  .btn#addToDo:hover {
+    background-color: var(--main-green);
+    color: var(--font-primary);
+    border: 1px solid var(--dark-green);
+    opacity: 0.8;
+  }
+}
+@media (hover: none) {
+  .btn#addToDo img:active {
+    opacity: 0.8;
+  }
+
+  .btn#deleteAll:active {
+    border: 1px solid var(--dark-red);
+    color: var(--font-primary);
+    background-color: var(--main-red);
+    opacity: 0.8;
+  }
+
+  .btn#addToDo:active {
+    background-color: var(--main-green);
+    color: var(--font-primary);
+    border: 1px solid var(--dark-green);
+    opacity: 0.8;
+  }
 }
