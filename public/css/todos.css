@@ -24,10 +24,10 @@
   box-shadow: 0px 4px 5px #202020, 0px 6px 15px #5a5a5a, 0px 1px 30px #8c8c8c;
 }
 .todo.growIn {
-  animation: toDo-growIn 0.3s ease;
+  animation: toDo-growIn 0.5s ease;
 }
 .todo.growOut {
-  animation: toDo-growOut 0.3s ease;
+  animation: toDo-growOut 0.5s ease;
 }
 
 .todo .container {
