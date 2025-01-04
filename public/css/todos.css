@@ -1,6 +1,6 @@
 #todos {
   width: 100%;
-  padding: 20px;
+  padding: 0px;
   display: grid;
   grid-template-columns: repeat(auto-fit, 350px);
   justify-content: center;
@@ -17,7 +17,7 @@
 
 .todo {
   width: 350px;
-  height: 500px;
+  height: 450px;
   border-radius: 5px;
   font-size: 14px;
   background-color: var(--off-white);
