@@ -21,7 +21,7 @@
   border-radius: 5px;
   font-size: 14px;
   background-color: var(--off-white);
-  box-shadow: 4px 4px 0px #292929, 5px 5px 20px #e2e2e279;
+  box-shadow: 4px 4px 0px #292929, 5px 5px 20px #e2e2e269;
 }
 .todo.growIn {
   animation: toDo-growIn 0.5s ease;
